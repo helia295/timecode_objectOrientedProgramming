@@ -6,11 +6,23 @@
 using namespace std;
 
 
+//CONSTRUCTORS
 TimeCode::TimeCode(unsigned int hr, unsigned int min, long long unsigned int sec) {
 	
-	this->SetHours(hr);
-	this->SetMinutes(min);
-	this->SetSeconds(sec);
+	if (static_cast<int>(hr) < 0) {
+		throw invalid_argument("Negative arguments not allowed: " + to_string(static_cast<int>(hr)));
+	}
+	
+	if (static_cast<int>(min) < 0) {
+		throw invalid_argument("Negative arguments not allowed: " + to_string(static_cast<int>(min)));
+		
+	}
+	
+	if (static_cast<int>(sec) < 0) {
+		throw invalid_argument("Negative arguments not allowed: " + to_string(static_cast<int>(sec)));
+	}
+	
+	this->t = this->ComponentsToSeconds(hr, min, sec);
 }
 
 
@@ -26,7 +38,11 @@ void TimeCode::SetHours(unsigned int hours) {
 		throw invalid_argument("Negative arguments not allowed: " + to_string(static_cast<int>(hours)));
 	}
 	
-	this->t += hours * 3600;
+	unsigned int hr, min, sec;
+	this->GetComponents(hr, min, sec);
+	
+	this->t = this->ComponentsToSeconds(hours, min, sec);
+	
 }
 
 
@@ -41,7 +57,10 @@ void TimeCode::SetMinutes(unsigned int minutes) {
 		
 	}
 	
-	this->t += minutes * 60;
+	unsigned int hr, min, sec;
+	this->GetComponents(hr, min, sec);
+	
+	this->t = this->ComponentsToSeconds(hr, minutes, sec);
 }
 
 
@@ -55,7 +74,10 @@ void TimeCode::SetSeconds(unsigned int seconds) {
 		throw invalid_argument("Negative arguments not allowed: " + to_string(static_cast<int>(seconds)));
 	}
 	
-	this->t += seconds;
+	unsigned int hr, min, sec;
+	this->GetComponents(hr, min, sec);
+	
+	this->t = this->ComponentsToSeconds(hr, min, seconds);
 }
 
 

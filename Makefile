@@ -1,7 +1,7 @@
 all:
-	g++ -Wall TimeCode.cpp TimeCodeTests.cpp -o test
+	g++ -Wall TimeCode.cpp TimeCodeTests.cpp -o nasa
 	
 run:
-	./test
+	./nasa
 	
 try: all run

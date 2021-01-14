@@ -30,7 +30,7 @@ void TestDefaultConstructor(){
 	cout << "PASSED!" << endl << endl;
 }
 
-
+/*
 void TestComponentConstructor(){
 	cout << "Testing Component Constructor" << endl;
 	TimeCode tc = TimeCode(0, 0, 0);
@@ -65,6 +65,54 @@ void TestComponentConstructor(){
 	} catch(const invalid_argument& e) {
 		// just keep doing more tests
 	}
+	
+	cout << "PASSED!" << endl << endl;
+}*/
+void TestComponentConstructor(){
+	cout << "Testing Component Constructor" << endl;
+	TimeCode tc = TimeCode(0, 0, 0);
+	//cout << "Testing ToString()" << endl;
+	//cout << "tc: " << tc.ToString() << endl;
+	assert(tc.ToString() == "0:0:0");
+	
+	// Random but "safe" inputs
+	TimeCode tc2 = TimeCode(3, 17, 42);
+	//cout << "tc2: " << tc2.ToString() << endl;
+	assert(tc2.ToString() == "3:17:42");
+	
+	// Roll-over inputs
+	TimeCode tc3 = TimeCode(3, 71, 3801);
+	//cout << "tc3: " << tc3.ToString() << endl;
+	assert(tc3.ToString() == "5:14:21");
+	
+	// default values
+	TimeCode tc4 = TimeCode(3, 5);
+	assert(tc4.ToString() == "3:5:0");
+	TimeCode tc5 = TimeCode(3);
+	assert(tc5.ToString() == "3:0:0");
+	
+	
+	// Really really big seconds value
+	TimeCode tc6 = TimeCode(0, 0, 13241341347);
+	//cout << tc6.ToString() << endl;
+	assert(tc6.ToString() == "3678150:22:27");
+	
+	cout << "PASSED!" << endl << endl;
+}
+
+void TestSetMinutes(){
+	cout << "Testing SetMinutes" << endl;
+	TimeCode tc = TimeCode(8, 5, 9);
+	tc.SetMinutes(15);
+	assert(tc.ToString() == "8:15:9");
+	
+	try{
+		tc.SetMinutes(80);
+	}
+	catch( const invalid_argument& e ) {
+		//cout << e.what() << endl;
+	}
+	assert(tc.ToString() == "8:15:9");
 	
 	cout << "PASSED!" << endl << endl;
 }
@@ -291,6 +339,7 @@ int main(){
 	TestGetHours();
 	TestGetMinutes();
 	TestGetSeconds();
+	TestSetMinutes();
 
 	
 	cout << "PASSED ALL TESTS!!!" << endl;
