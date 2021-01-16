@@ -1,7 +1,7 @@
 all:
-	g++ -std=c++11 -Wall -Wc++11-extensions TimeCode.cpp TimeCodeTests.cpp -o time-code
-	g++ -std=c++11 -Wall -Wc++11-extensions TimeCode.cpp NASALaunchAnalysis.cpp -o nasa
-	g++ -std=c++11 -Wall -Wc++11-extensions TimeCode.cpp PaintDryTimer.cpp -o pdt
+	g++ -Wall TimeCode.cpp TimeCodeTests.cpp -o time-code
+	g++ -Wall TimeCode.cpp NASALaunchAnalysis.cpp -o nasa
+	g++ -Wall TimeCode.cpp PaintDryTimer.cpp -o pdt
 	
 run:
 	./pdt
